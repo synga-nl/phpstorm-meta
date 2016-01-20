@@ -1,0 +1,24 @@
+{
+  "name": "synga/phpstorm-meta",
+  "description": "This package can find classes which are extended, implemented by a certain class or is using a certain trait.",
+  "autoload": {
+    "psr-4" : {
+      "Synga\\PhpStormMeta\\" : "src"
+    }
+  },
+  "authors": [
+    {
+      "name": "Roy Pouls",
+      "email": "packagist@synga.nl",
+      "homepage": "https://www.synga.nl"
+    }
+  ],
+  "license": "MIT",
+  "require": {
+    "php": ">=5.4",
+    "synga/inheritance-finder": "*@dev"
+  },
+  "require-dev" : {
+    "phpunit/phpunit": "5.1.*"
+  }
+}
