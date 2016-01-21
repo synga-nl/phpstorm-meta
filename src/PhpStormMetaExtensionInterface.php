@@ -3,5 +3,5 @@ namespace Synga\PhpStormMeta;
 
 interface PhpStormMetaExtensionInterface
 {
-    public function execute();
+    public function execute(BuilderFactory $factory);
 }
