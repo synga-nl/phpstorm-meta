@@ -9,7 +9,7 @@ use Synga\PhpStormMeta\DependencyResolverInterface;
  * Class GenerateCommand
  * @package Synga\PhpStormMeta\Command
  */
-class GenerateCommand
+class GenerateCommand extends IndependentCommandAbstract
 {
     /**
      * @var DependencyResolverInterface

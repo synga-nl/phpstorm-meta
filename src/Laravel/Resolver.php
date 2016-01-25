@@ -11,6 +11,8 @@ use Synga\PhpStormMeta\DependencyResolverInterface;
 class Resolver implements DependencyResolverInterface
 {
     /**
+     * Container to create a class with its dependencies
+     *
      * @var Container
      */
     private $container;
@@ -24,6 +26,8 @@ class Resolver implements DependencyResolverInterface
     }
 
     /**
+     * Resolves the given class and add passes the given arguments
+     *
      * @param $class
      * @param array $parameters
      * @return mixed
