@@ -17,7 +17,7 @@
   "require": {
     "php": ">=5.4",
     "synga/inheritance-finder": "0.0.*",
-    "illuminate/container": "5.*",
+    "illuminate/container": "5.1.*",
     "synga/console-abstraction":"*@dev"
   },
   "require-dev" : {
