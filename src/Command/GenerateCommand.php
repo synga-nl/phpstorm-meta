@@ -18,23 +18,23 @@ class GenerateCommand extends IndependentCommandAbstract
     /**
      * @var InheritanceFinderInterface
      */
-    private $inheritanceFinderFactory;
+    private $inheritanceFinder;
 
     /**
      * GenerateCommand constructor.
      * @param DependencyResolverInterface $resolver
-     * @param InheritanceFinderInterface $inheritanceFinderFactory
+     * @param InheritanceFinderInterface $inheritanceFinder
      */
-    public function __construct(DependencyResolverInterface $resolver, InheritanceFinderInterface $inheritanceFinderFactory) {
+    public function __construct(DependencyResolverInterface $resolver, InheritanceFinderInterface $inheritanceFinder) {
         $this->resolver = $resolver;
-        $this->inheritanceFinderFactory = $inheritanceFinderFactory;
+        $this->inheritanceFinder = $inheritanceFinder;
     }
 
     /**
      * @param $applicationRoot
      */
     public function generate($applicationRoot) {
-        $classes       = $this->inheritanceFinderFactory->findImplements('\Synga\PhpStormMeta\PhpStormMetaExtensionInterface', $applicationRoot);
+        $classes       = $this->inheritanceFinder->findImplements('\Synga\PhpStormMeta\PhpStormMetaExtensionInterface');
 
         $factory = new BuilderFactory();
 

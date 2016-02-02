@@ -8,16 +8,16 @@ class ExcludeCommand extends IndependentCommandAbstract
     /**
      * @var InheritanceFinderInterface
      */
-    private $inheritanceFinderFactory;
+    private $inheritanceFinder;
 
-    public function __construct(InheritanceFinderInterface $inheritanceFinderFactory) {
-        $this->inheritanceFinderFactory = $inheritanceFinderFactory;
+    public function __construct(InheritanceFinderInterface $inheritanceFinder) {
+        $this->inheritanceFinder = $inheritanceFinder;
     }
 
     public function exclude($applicationRoot){
         $namespaces = [];
         $excludeArray = [];
-        $classes = $this->inheritanceFinderFactory->findImplements('\Synga\PhpStormMeta\PhpStormMetaExtensionInterface', $applicationRoot);
+        $classes = $this->inheritanceFinder->findImplements('\Synga\PhpStormMeta\PhpStormMetaExtensionInterface');
         if(is_array($classes)){
             $namespaces = [];
 
