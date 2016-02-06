@@ -10,6 +10,8 @@
 namespace Synga\PhpStormMeta\Laravel;
 
 
+use Synga\InheritanceFinder\InheritanceFinderFactory;
+
 trait InheritanceFinderCreaterTrait
 {
     /**
