@@ -51,7 +51,7 @@ class GenerateCommand extends IndependentCommandAbstract
                 $object->execute($factory);
                 $this->output->info($class->getFullQualifiedNamespace() . 'added to .phpstorm.meta.php');
             } catch (\Exception $e) {
-                echo 'Class ' . $class->getFullQualifiedNamespace() . ' could not be initiated.' . "\r\n";
+                $this->output->warn('Class ' . $class->getFullQualifiedNamespace() . ' could not be initiated.');
             }
         }
 

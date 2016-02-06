@@ -45,6 +45,8 @@ class GenerateCommand extends Command
         $laravelConsoleInteraction = new LaravelConsoleInteraction();
         $laravelConsoleInteraction->setCommand($this);
 
+        $generateCommand->setOutput($laravelConsoleInteraction);
+
         $generateCommand->generate(base_path());
     }
 }
