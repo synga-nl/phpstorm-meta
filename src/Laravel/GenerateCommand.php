@@ -11,6 +11,7 @@ namespace Synga\PhpStormMeta\Laravel;
 
 
 use Illuminate\Console\Command;
+use Synga\ConsoleAbstraction\LaravelConsoleInteraction;
 use Synga\PhpStormMeta\Command\ClassSelector;
 
 class GenerateCommand extends Command
@@ -40,6 +41,10 @@ class GenerateCommand extends Command
         $inheritanceFinder = $this->getInheritanceFinder();
 
         $generateCommand = new \Synga\PhpStormMeta\Command\GenerateCommand(new Resolver($this->getLaravel()), $inheritanceFinder, new ClassSelector($inheritanceFinder));
+
+        $laravelConsoleInteraction = new LaravelConsoleInteraction();
+        $laravelConsoleInteraction->setCommand($this);
+
         $generateCommand->generate(base_path());
     }
 }

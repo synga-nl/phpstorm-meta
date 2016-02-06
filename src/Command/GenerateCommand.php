@@ -49,6 +49,7 @@ class GenerateCommand extends IndependentCommandAbstract
                 /* @var $object \Synga\PhpStormMeta\PhpStormMetaExtensionInterface */
                 $object = $this->resolver->resolve($class->getFullQualifiedNamespace());
                 $object->execute($factory);
+                $this->output->info($class->getFullQualifiedNamespace() . 'added to .phpstorm.meta.php');
             } catch (\Exception $e) {
                 echo 'Class ' . $class->getFullQualifiedNamespace() . ' could not be initiated.' . "\r\n";
             }
@@ -57,5 +58,7 @@ class GenerateCommand extends IndependentCommandAbstract
         $builder = $factory->getAndRemoveBuilder();
 
         file_put_contents($applicationRoot . '/.phpstorm.meta.php', $builder->build());
+
+        $this->output->info('.phpstorm.meta.php file written in application root.');
     }
 }
