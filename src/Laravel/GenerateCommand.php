@@ -11,6 +11,7 @@ namespace Synga\PhpStormMeta\Laravel;
 
 
 use Illuminate\Console\Command;
+use Synga\PhpStormMeta\Command\ClassSelector;
 
 class GenerateCommand extends Command
 {
@@ -38,7 +39,7 @@ class GenerateCommand extends Command
     public function handle() {
         $inheritanceFinder = $this->getInheritanceFinder();
 
-        $generateCommand = new \Synga\PhpStormMeta\Command\GenerateCommand(new Resolver($this->getLaravel()), $inheritanceFinder);
+        $generateCommand = new \Synga\PhpStormMeta\Command\GenerateCommand(new Resolver($this->getLaravel()), $inheritanceFinder, new ClassSelector($inheritanceFinder));
         $generateCommand->generate(base_path());
     }
 }

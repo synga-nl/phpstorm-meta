@@ -19,32 +19,38 @@ class GenerateCommand extends IndependentCommandAbstract
      * @var InheritanceFinderInterface
      */
     private $inheritanceFinder;
+    /**
+     * @var ClassSelector
+     */
+    private $classSelector;
 
     /**
      * GenerateCommand constructor.
      * @param DependencyResolverInterface $resolver
      * @param InheritanceFinderInterface $inheritanceFinder
      */
-    public function __construct(DependencyResolverInterface $resolver, InheritanceFinderInterface $inheritanceFinder) {
-        $this->resolver = $resolver;
+    public function __construct(DependencyResolverInterface $resolver, InheritanceFinderInterface $inheritanceFinder, ClassSelector $classSelector) {
+        $this->resolver          = $resolver;
         $this->inheritanceFinder = $inheritanceFinder;
+        $this->classSelector     = $classSelector;
     }
 
     /**
      * @param $applicationRoot
      */
     public function generate($applicationRoot) {
-        $classes       = $this->inheritanceFinder->findImplements('\Synga\PhpStormMeta\PhpStormMetaExtensionInterface');
+        $classes = $this->classSelector->getClasses($applicationRoot);
 
         $factory = new BuilderFactory();
 
-        foreach ($classes as $class) {
+        foreach ($classes['included'] as $class) {
             try {
+                $class = $this->inheritanceFinder->findClass($class);
                 /* @var $object \Synga\PhpStormMeta\PhpStormMetaExtensionInterface */
                 $object = $this->resolver->resolve($class->getFullQualifiedNamespace());
                 $object->execute($factory);
             } catch (\Exception $e) {
-                echo 'Class '. $class->getFullQualifiedNamespace() . ' could not be initiated.';
+                echo 'Class ' . $class->getFullQualifiedNamespace() . ' could not be initiated.' . "\r\n";
             }
         }
 

@@ -36,18 +36,15 @@ class ClassSelector extends IndependentCommandAbstract
         }
     }
 
-    public function excludeClasses($applicationRoot, $classes, $toBeExcluded) {
-        $file = $applicationRoot . '/.phpstorm.meta.cache';
-        file_put_contents($file, serialize(array_unique(array_merge($classes, $toBeExcluded))));
+    protected function excludeClasses($applicationRoot, $classes, $toBeExcluded) {
+        $this->writeToCacheFile($applicationRoot, array_unique(array_merge($classes, $toBeExcluded)));
     }
 
     protected function includeClasses($applicationRoot, $classes, $toBeIncluded) {
-        $file = $applicationRoot . '/.phpstorm.meta.cache';
-        var_dump(array_diff($classes, $toBeIncluded));
-        file_put_contents($file, serialize(array_unique(array_diff($classes, $toBeIncluded))));
+        $this->writeToCacheFile($applicationRoot, array_unique(array_diff($classes, $toBeIncluded)));
     }
 
-    protected function getClasses($applicationRoot) {
+    public function getClasses($applicationRoot) {
         $result = ['excluded' => [], 'included' => [], 'all' => []];
 
         $classes = $this->inheritanceFinder->findImplements('Synga\PhpStormMeta\PhpStormMetaExtensionInterface');
@@ -63,12 +60,13 @@ class ClassSelector extends IndependentCommandAbstract
         }
 
         $result['included'] = array_diff($result['all'], $result['excluded']);
-        var_dump($result);
 
         return $result;
     }
 
-    protected function writeToCacheFile() {
+    protected function writeToCacheFile($applicationRoot, $data) {
+        $file = $applicationRoot . '/.phpstorm.meta.cache';
+        file_put_contents($file, serialize($data));
 
     }
 }
