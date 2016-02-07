@@ -63,10 +63,15 @@ abstract class BuilderTypeAbstract
 
     protected function convertType($type) {
         switch ($type) {
+            case 'int':
+            case 'string':
+            case 'float':
+            case 'bool':
+                return $type;
             case 'array':
                 return '\stdClass';
             default:
-                return $type;
+                return '\\' . ltrim($type, '\\');
         }
     }
 
@@ -76,8 +81,15 @@ abstract class BuilderTypeAbstract
         $string .= " => [" . PHP_EOL;
         $string .= $this->getIndentation(3) . $this->getIgnoreCode();
 
+        $first = true;
         foreach ($this->getContent() as $key => $content) {
-            $string .= $this->getIndentation(3) . "'" . $key . "' instanceof " . $this->convertType($content) . ',' . PHP_EOL;
+            if($this->ignoreEmpty === false && $first === true) {
+                $string .= $this->getIndentation(0);
+            } else {
+                $string .= $this->getIndentation(3);
+            }
+            $string .= "'" . $key . "' instanceof " . $this->convertType($content) . ',' . PHP_EOL;
+            $first = false;
         }
 
         $string .= $this->getIndentation(2) . ']';
