@@ -10,6 +10,7 @@
 namespace Synga\PhpStormMeta\Laravel;
 
 
+use Synga\InheritanceFinder\InheritanceFinder;
 use Synga\InheritanceFinder\InheritanceFinderFactory;
 
 trait InheritanceFinderCreaterTrait
@@ -17,7 +18,7 @@ trait InheritanceFinderCreaterTrait
     /**
      * Gets an inheritance finder for the Laravel Framework.
      *
-     * @return mixed
+     * @return InheritanceFinder
      */
     protected function getInheritanceFinder(){
         if(!file_exists(storage_path('class_cache'))){
