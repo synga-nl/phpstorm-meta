@@ -49,7 +49,7 @@ class GenerateCommand extends IndependentCommandAbstract
                 /* @var $object \Synga\PhpStormMeta\PhpStormMetaExtensionInterface */
                 $object = $this->resolver->resolve($class->getFullQualifiedNamespace());
                 $object->execute($factory);
-                $this->output->info($class->getFullQualifiedNamespace() . 'added to .phpstorm.meta.php');
+                $this->output->info('Class' . $class->getFullQualifiedNamespace() . ' added to .phpstorm.meta.php');
             } catch (\Exception $e) {
                 $this->output->warn('Class ' . $class->getFullQualifiedNamespace() . ' could not be initiated.');
             }
