@@ -2,6 +2,7 @@
 namespace Synga\PhpStormMeta\Command;
 
 use Synga\InheritanceFinder\InheritanceFinderInterface;
+use Synga\ModelManager\Finder\Model;
 use Synga\PhpStormMeta\BuilderFactory;
 use Synga\PhpStormMeta\DependencyResolverInterface;
 

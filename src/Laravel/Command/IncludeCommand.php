@@ -7,46 +7,43 @@
  * @link        https://github.com/synga-nl/inheritance-finder
  */
 
-namespace Synga\PhpStormMeta\Laravel;
+namespace Synga\PhpStormMeta\Laravel\Command;
 
 
 use Illuminate\Console\Command;
 use Synga\ConsoleAbstraction\LaravelConsoleInteraction;
+use Synga\InheritanceFinder\InheritanceFinderInterface;
 use Synga\PhpStormMeta\Command\ClassSelector;
 
-class GenerateCommand extends Command
+class IncludeCommand extends Command
 {
-    use InheritanceFinderCreaterTrait;
-
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'phpstorm-meta:generate';
+    protected $signature = 'phpstorm-meta:include';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Gets all phpstorm-meta classes and generates a phpstorm-meta file';
+    protected $description = 'Gets all phpstorm-meta classes which are excluded and gives you the option to include them again';
 
     /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle() {
-        $inheritanceFinder = $this->getInheritanceFinder();
-
-        $generateCommand = new \Synga\PhpStormMeta\Command\GenerateCommand(new Resolver($this->getLaravel()), $inheritanceFinder, new ClassSelector($inheritanceFinder));
+    public function handle(InheritanceFinderInterface $inheritanceFinder) {
+        $includeCommand = new ClassSelector($inheritanceFinder);
 
         $laravelConsoleInteraction = new LaravelConsoleInteraction();
         $laravelConsoleInteraction->setCommand($this);
 
-        $generateCommand->setOutput($laravelConsoleInteraction);
+        $includeCommand->setOutput($laravelConsoleInteraction);
 
-        $generateCommand->generate(base_path());
+        $includeCommand->includeCommand(base_path());
     }
 }
